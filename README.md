@@ -68,8 +68,41 @@ Use unseen runs and several fixed seeds. Compare an ordinary encoder/controller,
 
 ## Project structure
 
-The starter intentionally has one small runtime module, one check module, one CI workflow and five compact data/display artifacts. No fly connectome, trading SDK, large model weights or duplicate videos are included.
+The starter contains the offline runtime, two controller modules, one check module, one CI workflow and five compact data/display artifacts. No fly connectome, trading SDK, large model weights or duplicate videos are included.
 
 The engineering pattern follows [Stonkfly](https://github.com/nftechie/stonkfly): verified inputs, a visible sensory path, explicit readout boundaries and local run artifacts. The fly's cell model, dopamine assignments and trading rules are not transferred to a cat. Reference revision: `78ef3e05ab0fa086032098558d893667068944a0`.
 
 See [THIRD_PARTY.md](THIRD_PARTY.md) for provenance and data limitations.
+
+
+## Controller development files
+
+| Module | Responsibility | Current status |
+| --- | --- | --- |
+| `catbrain/controller.py` | Action vocabulary, controller configuration and temporal state-input contract | Interface defined; trained inference pending |
+| `catbrain/train_controller.py` | Training configuration and command-line entry point | Scaffold; dataset loader and optimization pending |
+
+The action order is fixed: `none`, `left`, `right`, `jump`, `roll`. The initial readout contract accepts eight chronological frames of 65 area-state values, oldest first, ending at the current observation. Eight frames is a starting configuration, not a validated temporal window. The policy receives network state only; raw images stay upstream.
+
+### Resume here
+
+1. Collect complete game episodes with recorded action timestamps. The current sample and replay logs have no supervision labels.
+2. Define a labeled manifest with `episode_id`, `frame`, `time_s`, `action`, and the corresponding `area_state` or a reference to its stored array. Specify action timing relative to frame capture; never use future frames in an input window.
+3. Implement the loader and whole-episode split in `train_controller.py`. Prevent overlapping windows from the same episode appearing in different partitions.
+4. Implement a small temporal action readout and supervised optimization. Configuration defaults are provisional. Track validation loss and per-action accuracy, including rare jump/roll events.
+5. Save a versioned checkpoint with weights, feature order, action order, history length, normalization, random seed and source-data hashes. The existing replay checkpoint is recurrent state only, not a trained policy.
+6. Implement checkpoint loading and `Controller.predict`, then evaluate offline before attaching a game-input adapter.
+
+The entry point already exposes its intended options:
+
+```sh
+python -m catbrain.train_controller --help
+```
+
+After the loader and optimizer are implemented, the intended invocation is:
+
+```sh
+python -m catbrain.train_controller --dataset data/local/labeled-episodes.jsonl --out runs/controller --seed 7
+```
+
+**Training and inference currently stop explicitly instead of emitting fabricated actions, weights or metrics.** The two modules are implementation placeholders with real interfaces; no trained controller is included.
