@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "path": "data/cat-cortex.graphml",
+      "bytes": 58516,
+      "sha256": "56840c01277c4cefe4d3ebd2945fdd2bc0221ea0dee89725862c9d70e256e48f",
+      "source": "https://s3.amazonaws.com/connectome-graphs/cat/mixed.species_brain_1.graphml"
+    },
+    {
+      "path": "data/brain.json",
+      "bytes": 31513,
+      "sha256": "24d6dbb2b36f7da625e97524d66e056af591714a80682b28ca2f3f3caf9eb6cf",
+      "source": "CATLAS; existing local conversion"
+    },
+    {
+      "path": "data/brain.bin",
+      "bytes": 3292008,
+      "sha256": "ab5598022b6abf0c8cb34051d326910b25e91ea7150a68d5f20057dc82d032d8",
+      "source": "CATLAS; existing local conversion"
+    },
+    {
+      "path": "data/gameplay-sample.mp4",
+      "bytes": 577183,
+      "sha256": "2a8f971572ddca814f95f5ae81abbe42fd35b032572d8804c776e0803a9090df",
+      "source": "User-supplied MSTQX recording; seconds 26\u201331"
+    },
+    {
+      "path": "assets/demo.jpg",
+      "bytes": 464270,
+      "sha256": "6da153f1dce6710d4bd8407a1ee2e52f7ca26822fac67d9212b53c332a8d7b6e",
+      "source": "Project demonstration, synthetic cortical display"
+    }
+  ],
+  "optional_not_included": [
+    "CRCNS pvc-3 raw responses and stimuli",
+    "trained visual encoder",
+    "labeled game actions"
+  ]
+}

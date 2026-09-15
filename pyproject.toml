@@ -1,0 +1,11 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "catbrain-subway"
+version = "0.1.0"
+description = "Compact image-driven feline area-network research scaffold"
+requires-python = ">=3.11"
+dependencies = ["numpy>=2.0,<3", "opencv-python-headless>=4.10,<5"]
+[tool.setuptools.packages.find]
+include = ["catbrain*"]
