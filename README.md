@@ -3,6 +3,7 @@
 An image-driven research project: game frames enter a visual encoder, a feline cortical-area network maintains temporal state, and a trained controller uses the evolving network state to choose game actions in real time.
 
 The complete pipeline runs from perception to action:
+![CatBrain scene-perception demonstration](assets/demo.jpg)
 
 **game frames → visual encoder → 65-area cortical network → temporal controller → game actions**
 
